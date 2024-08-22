@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerBody
+  - PlayerBlock
+  - PlayerAttack
+  - PlayerMark
+  - Floor
+  - EnemyBody
   - 
   - 
   - 

@@ -90,22 +90,21 @@ public class MoveHorizontal : MonoBehaviour
 
     private void Dash()
     {
-        m_dashTime += Time.deltaTime;
+        m_dashTime += Time.fixedDeltaTime;
 
-        if (
-            (m_status.Status.Composure.Current > m_dashCost)
-            || (Math.Abs((m_status.Status.Composure.Current - m_dashCost))
-                > float.Epsilon))
+        if (m_status.Status.Composure.Current >= m_dashCost)
         {
             if (!m_isDashPaid)
             {
                 m_status.Status.Composure.DamageFloored(m_dashCost);
                 m_isDashPaid = true;
             }
+        }
 
+        if (m_isDashPaid)
+        {
             if (m_dashTime < m_dashMaximumTime)
             {
-                Debug.Log("Dash time: " + m_dashTime);
                 var position = m_body.transform.position;
 
                 if (Direction == MoveDirection.Left)

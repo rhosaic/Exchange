@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -17,7 +16,6 @@ public class Block : MonoBehaviour
 
     private Vector3 m_leftBlockOffset;
     private bool m_isActive;
-    private bool m_isDraw;
 
     void Awake()
     {
@@ -28,7 +26,6 @@ public class Block : MonoBehaviour
         m_leftBlockOffset.x *= -1;
 
         m_isActive = false;
-        m_isDraw = true;
     }
 
     void Update()
@@ -46,31 +43,18 @@ public class Block : MonoBehaviour
 
             if (collider)
             {
-                var projectile = collider.GetComponentInParent<Projectile>();
+                var attack = collider.GetComponentInChildren<Attack>();
 
-                if (projectile)
+                if (attack)
                 {
-                    projectile.Despawn();
-                    m_statusDisplay.Status.Composure.HealCapped(projectile.Damage);
+                    if (attack.IsDamage)
+                    {
+                        m_statusDisplay.Status.Composure.HealCapped(attack.Damage / 2);
+                    }
+
+                    attack.IsDamage = false;
                 }
             }
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        if (m_isDraw)
-        {
-            var blockPosition = m_playerPosition.transform.position + m_rightBlockOffset;
-
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Left)
-            {
-                blockPosition = m_playerPosition.transform.position + m_leftBlockOffset;
-            }
-
-            Gizmos.color = Color.red;
-
-            Gizmos.DrawWireCube(blockPosition, m_size);
         }
     }
 }

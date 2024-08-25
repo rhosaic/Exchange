@@ -7,7 +7,7 @@ public class Form1Animations : MonoBehaviour
     private const string RIGHT_ACTIVE = "Form1RightActive";
     private const string RIGHT_PASSIVE = "Form1RightPassive";
 
-    const float ACTIVE_TIME = 0.3f;
+    const float ACTIVE_TIME = 0.15f;
 
     [SerializeField] private GameObject m_formManagerObject;
     [SerializeField] private GameObject m_moveHorizontalObject;

@@ -21,7 +21,6 @@ public class FireProjectile : MonoBehaviour
         {
             m_fireTime = 0.0f;
 
-            m_projectile.Despawn();
             m_projectile.Spawn();
         }
     }

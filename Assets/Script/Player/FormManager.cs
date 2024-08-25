@@ -14,7 +14,6 @@ public class FormManager : MonoBehaviour
     private InputAction m_form1;
     private InputAction m_form2;
     private InputAction m_form3;
-    private int m_form3PressCount;
     private bool m_isForm3Ascending;
 
     void Awake()
@@ -27,7 +26,6 @@ public class FormManager : MonoBehaviour
 
         CurrentForm = Form.Zero;
 
-        m_form3PressCount = 0;
         m_form1Time = 0.0f;
     }
 
@@ -87,7 +85,6 @@ public class FormManager : MonoBehaviour
             {
                 CurrentForm = Form.Three;
                 m_isForm3Ascending = true;
-                m_form3PressCount += 1;
             }
         }
 

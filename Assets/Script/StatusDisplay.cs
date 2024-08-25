@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class StatusDisplay : MonoBehaviour
 {
     public Status Status { get => m_status; private set { } }
-    [SerializeField] private int m_composureMaximum;
-    [SerializeField] private int m_healthMaximum;
+    [SerializeField] private float m_composureMaximum;
+    [SerializeField] private float m_healthMaximum;
     [SerializeField] private Slider m_composureSlider;
     [SerializeField] private Slider m_healthSlider;
 

@@ -30,9 +30,10 @@ public class Form2Animations : MonoBehaviour
     private readonly float[] m_delays = { DELAY_STRIKE1, DELAY_STRIKE2, DELAY_MARK };
     private readonly float[] m_resets = { RESET_STRIKE1, RESET_STRIKE2, RESET_MARK };
     private InputAction m_strike;
-    FormManager m_formManager;
+    private FormManager m_formManager;
     private MoveHorizontal m_moveHorizontal;
     private AnimatorManager m_animatorManager;
+
     private int m_strikeCount;
     private float m_strikeTime;
     private bool m_isStart;

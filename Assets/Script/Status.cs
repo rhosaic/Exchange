@@ -46,9 +46,7 @@ public class Health
 
     public float PercentRemaining()
     {
-        var percent = (float)m_current / (float)m_maximum;
-
-        return percent;
+        return m_current / m_maximum;
     }
 
     public bool IsZero()
@@ -70,17 +68,7 @@ public class Status
         m_health = new Health(healthMaximum);
     }
 
-    public void HealComposureCapped(float value)
-    {
-        m_composure.HealCapped(value);
-    }
-
-    public void HealHealthCapped(float value)
-    {
-        m_health.HealCapped(value);
-    }
-
-    public void DamageComposureArmor(float value)
+    public void Damage(float value)
     {
         if (value > float.Epsilon)
         {

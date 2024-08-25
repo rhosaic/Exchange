@@ -107,32 +107,5 @@ public class FormManager : MonoBehaviour
             }
         }
     }
-
-    private void UpdateForm3PressCount()
-    {
-        if (m_form3.WasPressedThisFrame())
-        {
-            if ((m_form3PressCount + 1) == 2)
-            {
-                m_form3PressCount = 0;
-            }
-            else
-            {
-                ++m_form3PressCount;
-            }
-        }
-    }
-
-    private void UpdateIsForm3Ascending()
-    {
-        if (!m_form3.WasReleasedThisFrame())
-        {
-            m_isForm3Ascending = false;
-        }
-        else
-        {
-            m_isForm3Ascending = true;
-        }
-    }
 }
 

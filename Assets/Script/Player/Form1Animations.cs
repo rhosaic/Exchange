@@ -12,43 +12,42 @@ public class Form1Animations : MonoBehaviour
     [SerializeField] private GameObject m_formManagerObject;
     [SerializeField] private GameObject m_moveHorizontalObject;
     [SerializeField] private GameObject m_animatorManagerObject;
+    [SerializeField] private GameObject m_blockObject;
 
     private FormManager m_formManger;
     private MoveHorizontal m_moveHorizontal;
     private AnimatorManager m_animatorManager;
+    private Block m_block;
 
     void Awake()
     {
         m_formManger = m_formManagerObject.GetComponent<FormManager>();
         m_moveHorizontal = m_moveHorizontalObject.GetComponent<MoveHorizontal>();
         m_animatorManager = m_animatorManagerObject.GetComponent<AnimatorManager>();
+        m_block = m_blockObject.GetComponent<Block>();
     }
 
     void Update()
     {
+        m_block.IsActive = false;
+
         if (m_formManger.CurrentForm == FormManager.Form.One)
         {
-            var state = LEFT_ACTIVE;
+            var state = LEFT_PASSIVE;
 
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Left)
+            if (m_formManger.Form1Time < ACTIVE_TIME)
             {
-                if (m_formManger.Form1Time < ACTIVE_TIME)
-                {
-                    state = LEFT_ACTIVE;
-                }
-                else
-                {
-                    state = LEFT_PASSIVE;
-                }
-            }
+                state = LEFT_ACTIVE;
+                m_block.IsActive = true;
 
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
-            {
-                if (m_formManger.Form1Time < ACTIVE_TIME)
+                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
                 {
                     state = RIGHT_ACTIVE;
                 }
-                else
+            }
+            else
+            {
+                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
                 {
                     state = RIGHT_PASSIVE;
                 }

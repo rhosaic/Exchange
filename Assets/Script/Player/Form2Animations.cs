@@ -7,6 +7,7 @@ public class Form2Animations : MonoBehaviour
     [SerializeField] private GameObject m_formManagerObject;
     [SerializeField] private GameObject m_moveHorizontalObject;
     [SerializeField] private GameObject m_animatorManagerObject;
+    [SerializeField] private GameObject m_strikeManagerObject;
 
     private const float RESET_STRIKE1 = 0.6f;
     private const float RESET_STRIKE2 = 0.6f;
@@ -33,11 +34,11 @@ public class Form2Animations : MonoBehaviour
     private FormManager m_formManager;
     private MoveHorizontal m_moveHorizontal;
     private AnimatorManager m_animatorManager;
+    private StrikeManager m_strikeManager;
 
     private int m_strikeCount;
     private float m_strikeTime;
     private bool m_isStart;
-    private bool m_isAwait;
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public class Form2Animations : MonoBehaviour
         m_formManager = m_formManagerObject.GetComponent<FormManager>();
         m_moveHorizontal = m_moveHorizontalObject.GetComponent<MoveHorizontal>();
         m_animatorManager = m_animatorManagerObject.GetComponent<AnimatorManager>();
+        m_strikeManager = m_strikeManagerObject.GetComponent<StrikeManager>();
 
         m_strikeCount = 0;
         m_strikeTime = 0.0f;
@@ -56,6 +58,9 @@ public class Form2Animations : MonoBehaviour
 
     void Update()
     {
+        m_strikeManager.IsStartStrike1 = false;
+        m_strikeManager.IsStartStrike2 = false;
+
         if (m_formManager.CurrentForm == FormManager.Form.Two)
         {
             var state = LEFT_PASSIVE;
@@ -86,29 +91,44 @@ public class Form2Animations : MonoBehaviour
                     m_strikeTime = 0.0f;
                     m_strikeCount = 0;
                 }
-
-                if (
-                    m_strike.WasPressedThisFrame()
-                    && m_strikeTime > m_delays[m_strikeCount]
-                    && m_strikeTime < m_resets[m_strikeCount])
+                else
                 {
-                    m_strikeTime = 0.0f;
+                    if (m_strikeCount == 0)
+                    {
+                        m_strikeManager.IsStartStrike1 = true;
+                    }
+                    else if (m_strikeCount == 1)
+                    {
+                        m_strikeManager.IsStartStrike2 = true;
+                    }
 
-                    if (m_strikeCount + 1 == STRIKE_MAXIMUM)
+                    if (
+                        m_strike.WasPressedThisFrame()
+                        && m_strikeTime > m_delays[m_strikeCount])
                     {
-                        m_strikeCount = 0;
+                        m_strikeTime = 0.0f;
+
+                        if (m_strikeCount + 1 == STRIKE_MAXIMUM)
+                        {
+                            m_strikeCount = 0;
+                        }
+                        else
+                        {
+                            ++m_strikeCount;
+                        }
                     }
-                    else
-                    {
-                        ++m_strikeCount;
-                    }
+
+                    state = comboNames[m_strikeCount];
                 }
-
-                state = comboNames[m_strikeCount];
             }
 
             m_animatorManager.PlayState(state);
         }
+        else
+        {
+            m_isStart = false;
+            m_strikeTime = 0.0f;
+            m_strikeCount = 0;
+        }
     }
-
 }

@@ -2343,8 +2343,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f898adb7f12c6448ea9cefe65de2190c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fireDelay: 2
+  m_minimumFireDelay: 0.7
+  m_maximumFireDelay: 2.3
   m_projectileObject: {fileID: 332490630}
+  m_statusDisplayObject: {fileID: 1564485833}
 --- !u!1 &1968925974
 GameObject:
   m_ObjectHideFlags: 0

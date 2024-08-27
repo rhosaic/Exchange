@@ -57,7 +57,6 @@ public class Projectile : MonoBehaviour, IAttack
 
     public void Begin()
     {
-        Debug.Log("Beginning projectile");
         m_projectileObject.transform.position = m_spawnPosition;
 
         m_isProcess = true;

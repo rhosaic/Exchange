@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2340295510725149050}
-  - component: {fileID: 6999765317519798846}
+  - component: {fileID: 836845248111135838}
   - component: {fileID: 4496322290936913642}
   m_Layer: 8
   m_Name: Strike1
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6999765317519798846
+--- !u!114 &836845248111135838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2484634898820895472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d64cfe94bbd884cffbe19415e171fdb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f93ee5d2c4fd42afb4c535a0095f40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 0.5

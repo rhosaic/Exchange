@@ -1,80 +1,115 @@
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class StrikeManager : MonoBehaviour
+public class StrikeManager : MonoBehaviour, IAttack
 {
-    public bool IsStartStrike1 { get => m_isStartStrike1; set { m_isStartStrike1 = value; } }
-    public bool IsStartStrike2 { get => m_isStartStrike2; set { m_isStartStrike2 = value; } }
+    public int AttackIndex { get => m_attackIndex; set { m_attackIndex = value; } }
+    public DamageInfo DamageInfo { get => m_damageInfos[m_attackIndex]; }
 
+    [SerializeField] private List<GameObject> m_attackObjects;
+    [SerializeField] private List<BoxCollider2D> m_attackBodies;
+    [SerializeField] private List<GameObject> m_damageInfoObjects;
+    [SerializeField] private LayerMask m_hitboxLayer;
+    [SerializeField] private List<Transform> m_attackDefaultTransforms;
+    [SerializeField] private List<Transform> m_attackRightTransforms;
+    [SerializeField] private List<Transform> m_attackLeftTransforms;
     [SerializeField] private GameObject m_moveHorizontalObject;
-    [SerializeField] private Transform m_playerPosition;
-    [SerializeField] private Transform m_rightStrikePosition;
-    [SerializeField] private Transform m_leftStrikePosition;
-    [SerializeField] private GameObject m_strike1AttackObject;
-    [SerializeField] private GameObject m_strike2AttackObject;
 
+    private List<Vector3> m_attackDefaultPositions;
+    private List<DamageInfo> m_damageInfos;
+    private bool m_isEnd;
+    private int m_attackIndex;
+    private int m_attackCount;
     private MoveHorizontal m_moveHorizontal;
-    private Vector3 m_strike1DefaultPosition;
-    private Vector3 m_strike2DefaultPosition;
-    private Attack m_strike1Attack;
-    private Attack m_strike2Attack;
-    private bool m_isStartStrike1;
-    private bool m_isStartStrike2;
-    private bool m_isStrike1DamageSent;
-    private bool m_isStrike2DamageSent;
+    private Collider2D[] m_collisions;
+    private ContactFilter2D m_filter;
 
     void Awake()
     {
         m_moveHorizontal = m_moveHorizontalObject.GetComponent<MoveHorizontal>();
-        m_strike1Attack = m_strike1AttackObject.GetComponent<Attack>();
-        m_strike2Attack = m_strike2AttackObject.GetComponent<Attack>();
 
-        m_strike1DefaultPosition = m_strike1AttackObject.transform.position;
-        m_strike2DefaultPosition = m_strike2AttackObject.transform.position;
+        m_attackDefaultPositions = new List<Vector3>();
+        m_damageInfos = new List<DamageInfo>();
+        m_collisions = new Collider2D[1];
 
-        m_isStartStrike1 = false;
-        m_isStartStrike2 = false;
+        m_filter.SetLayerMask(m_hitboxLayer);
+
+        foreach (Transform transform in m_attackDefaultTransforms)
+        {
+            m_attackDefaultPositions.Add(transform.position);
+        }
+
+        foreach (GameObject damageInfoObject in m_damageInfoObjects)
+        {
+            m_damageInfos.Add(damageInfoObject.GetComponent<DamageInfo>());
+        }
+
+        m_attackIndex = 0;
+        m_attackCount = m_attackObjects.Count;
+        m_isEnd = true;
+    }
+
+    public void Begin()
+    {
+        if (m_attackIndex >= 0 && m_attackIndex < m_attackCount)
+        {
+            var position = m_attackLeftTransforms[m_attackIndex].transform.position;
+
+            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+            {
+                position = m_attackRightTransforms[m_attackIndex].transform.position;
+            }
+
+            m_attackObjects[m_attackIndex].transform.position = position;
+        }
+
+        m_isEnd = false;
+    }
+
+    private void Process()
+    {
+        m_attackBodies[m_attackIndex].OverlapCollider(m_filter, m_collisions);
+
+        foreach (Collider2D collision in m_collisions)
+        {
+            if (collision)
+            {
+                if (collision.TryGetComponent<Hitbox>(out var hitbox))
+                {
+                    var damageInfo = m_damageInfos[m_attackIndex];
+
+                    if (damageInfo.DamageType == DamageType.Standard)
+                    {
+                        hitbox.StatusDisplay.Status.Damage(damageInfo.Damage);
+                        End();
+                    }
+                    else if (damageInfo.DamageType == DamageType.Composure)
+                    {
+                        hitbox.StatusDisplay.Status.Composure.DamageFloored(damageInfo.Damage);
+                        End();
+                    }
+                }
+            }
+        }
+    }
+
+    public void End()
+    {
+        m_attackObjects[m_attackIndex].transform.position = m_attackDefaultPositions[m_attackIndex];
+
+        m_isEnd = true;
     }
 
     void Update()
     {
-        var strikePosition = m_rightStrikePosition;
-
-        if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Left)
+        if (m_isEnd)
         {
-            strikePosition = m_leftStrikePosition;
-        }
-
-        if (m_isStartStrike1)
-        {
-            if (!m_isStrike1DamageSent)
-            {
-                m_isStrike1DamageSent = true;
-                m_strike1Attack.IsDamage = true;
-            }
-
-            m_strike1AttackObject.transform.position = strikePosition.position;
+            End();
         }
         else
         {
-            m_isStrike1DamageSent = false;
-            m_strike1AttackObject.transform.position = m_strike1DefaultPosition;
-        }
-
-        if (m_isStartStrike2)
-        {
-            if (!m_isStrike2DamageSent)
-            {
-                m_isStrike2DamageSent = true;
-                m_strike2Attack.IsDamage = true;
-            }
-
-            m_strike2AttackObject.transform.position = strikePosition.position;
-        }
-        else
-        {
-            m_isStrike2DamageSent = false;
-            m_strike2AttackObject.transform.position = m_strike2DefaultPosition;
+            Process();
         }
     }
 }

@@ -43,16 +43,11 @@ public class Block : MonoBehaviour
 
             if (collider)
             {
-                var attack = collider.GetComponentInChildren<Attack>();
-
-                if (attack)
+                if (collider.TryGetComponent<DamageInfo>(out var attack))
                 {
-                    if (attack.IsDamage)
-                    {
-                        m_statusDisplay.Status.Composure.HealCapped(attack.Damage / 2);
-                    }
+                    m_statusDisplay.Status.Composure.HealCapped(attack.Damage / 2);
 
-                    attack.IsDamage = false;
+                    attack.Attack.End();
                 }
             }
         }

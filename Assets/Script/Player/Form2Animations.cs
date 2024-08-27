@@ -39,6 +39,7 @@ public class Form2Animations : MonoBehaviour
     private int m_strikeCount;
     private float m_strikeTime;
     private bool m_isStart;
+    private bool m_isBeginAttack;
 
     void Awake()
     {
@@ -54,13 +55,11 @@ public class Form2Animations : MonoBehaviour
         m_strikeCount = 0;
         m_strikeTime = 0.0f;
         m_isStart = false;
+        m_isBeginAttack = false;
     }
 
     void Update()
     {
-        m_strikeManager.IsStartStrike1 = false;
-        m_strikeManager.IsStartStrike2 = false;
-
         if (m_formManager.CurrentForm == FormManager.Form.Two)
         {
             var state = LEFT_PASSIVE;
@@ -90,16 +89,19 @@ public class Form2Animations : MonoBehaviour
                     m_isStart = false;
                     m_strikeTime = 0.0f;
                     m_strikeCount = 0;
+
+                    m_strikeManager.End();
+                    m_isBeginAttack = false;
                 }
                 else
                 {
-                    if (m_strikeCount == 0)
+                    m_strikeManager.AttackIndex = m_strikeCount;
+
+                    if (!m_isBeginAttack)
                     {
-                        m_strikeManager.IsStartStrike1 = true;
-                    }
-                    else if (m_strikeCount == 1)
-                    {
-                        m_strikeManager.IsStartStrike2 = true;
+                        m_strikeManager.Begin();
+
+                        m_isBeginAttack = true;
                     }
 
                     if (
@@ -107,6 +109,9 @@ public class Form2Animations : MonoBehaviour
                         && m_strikeTime > m_delays[m_strikeCount])
                     {
                         m_strikeTime = 0.0f;
+
+                        m_strikeManager.End();
+                        m_isBeginAttack = false;
 
                         if (m_strikeCount + 1 == STRIKE_MAXIMUM)
                         {

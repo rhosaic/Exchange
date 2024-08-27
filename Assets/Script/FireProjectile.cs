@@ -17,11 +17,11 @@ public class FireProjectile : MonoBehaviour
     {
         m_fireTime += Time.deltaTime;
 
-        if (m_fireTime >= m_fireDelay)
+        if (m_fireTime > m_fireDelay)
         {
-            m_fireTime = 0.0f;
+            m_projectile.Begin();
 
-            m_projectile.Spawn();
+            m_fireTime = 0.0f;
         }
     }
 }

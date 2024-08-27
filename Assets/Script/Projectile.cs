@@ -19,7 +19,6 @@ public class Projectile : MonoBehaviour, IAttack
     private DamageInfo m_damageInfo;
     private bool m_isProcess;
     private bool m_isEnd;
-    private Collider2D[] m_collisions;
     private ContactFilter2D m_filter;
 
     void Awake()
@@ -28,7 +27,6 @@ public class Projectile : MonoBehaviour, IAttack
 
         m_projectileDefaultPosition = m_projectileObject.transform.position;
         m_spawnPosition = m_spawnTransform.transform.position;
-        m_collisions = new Collider2D[1];
 
         m_filter.SetLayerMask(m_hitboxLayer);
 
@@ -82,9 +80,11 @@ public class Projectile : MonoBehaviour, IAttack
 
     private void ProcessCollision()
     {
-        m_attackBody.OverlapCollider(m_filter, m_collisions);
+        var collisions = new Collider2D[1];
 
-        foreach (Collider2D collision in m_collisions)
+        m_attackBody.OverlapCollider(m_filter, collisions);
+
+        foreach (Collider2D collision in collisions)
         {
             if (collision)
             {

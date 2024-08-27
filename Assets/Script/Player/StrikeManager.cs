@@ -22,7 +22,6 @@ public class StrikeManager : MonoBehaviour, IAttack
     private int m_attackIndex;
     private int m_attackCount;
     private MoveHorizontal m_moveHorizontal;
-    private Collider2D[] m_collisions;
     private ContactFilter2D m_filter;
 
     void Awake()
@@ -31,7 +30,6 @@ public class StrikeManager : MonoBehaviour, IAttack
 
         m_attackDefaultPositions = new List<Vector3>();
         m_damageInfos = new List<DamageInfo>();
-        m_collisions = new Collider2D[1];
 
         m_filter.SetLayerMask(m_hitboxLayer);
 
@@ -69,9 +67,10 @@ public class StrikeManager : MonoBehaviour, IAttack
 
     private void Process()
     {
-        m_attackBodies[m_attackIndex].OverlapCollider(m_filter, m_collisions);
+        var collisions = new Collider2D[1];
+        m_attackBodies[m_attackIndex].OverlapCollider(m_filter, collisions);
 
-        foreach (Collider2D collision in m_collisions)
+        foreach (Collider2D collision in collisions)
         {
             if (collision)
             {

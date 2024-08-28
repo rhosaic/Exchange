@@ -95,7 +95,8 @@ public class StrikeManager : MonoBehaviour, IAttack
 
     public void End()
     {
-        m_attackObjects[m_attackIndex].transform.position = m_attackDefaultPositions[m_attackIndex];
+        m_attackObjects[m_attackIndex].transform.position =
+            m_attackDefaultPositions[m_attackIndex];
 
         m_isEnd = true;
     }

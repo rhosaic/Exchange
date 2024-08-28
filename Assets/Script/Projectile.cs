@@ -68,7 +68,14 @@ public class Projectile : MonoBehaviour, IAttack
         var position = m_projectileObject.transform.position;
         var direction = (m_target.transform.position - position).normalized;
 
-        var rotationZ = (float)Math.Atan(direction.y / direction.x) * Mathf.Rad2Deg;
+        var directionSlope = direction.y / direction.x;
+        var rotationZ = (float)Math.Atan(directionSlope) * Mathf.Rad2Deg;
+
+        if (directionSlope < 0)
+        {
+            rotationZ += 180;
+        }
+
 
         var step = Time.fixedDeltaTime * m_speed * direction;
 

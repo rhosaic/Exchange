@@ -131,9 +131,14 @@ public class Form2Animations : MonoBehaviour
         }
         else
         {
+            m_strikeManager.End();
+
             m_isStart = false;
             m_strikeTime = 0.0f;
             m_strikeCount = 0;
+            m_isBeginAttack = false;
+
+            m_strikeManager.AttackIndex = m_strikeCount;
         }
     }
 }

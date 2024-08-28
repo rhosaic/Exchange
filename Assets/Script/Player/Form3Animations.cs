@@ -13,7 +13,7 @@ public class Form3Animations : MonoBehaviour
     [SerializeField] private GameObject m_moveHorizontalObject;
     [SerializeField] private GameObject m_animatorManagerObject;
 
-    private InputAction m_transfer;
+    private InputAction m_exchange;
     private FormManager m_formManager;
     private MoveHorizontal m_moveHorizontal;
     private AnimatorManager m_animatorManager;
@@ -21,7 +21,7 @@ public class Form3Animations : MonoBehaviour
     void Awake()
     {
         m_inputs.Enable();
-        m_transfer = m_inputs.FindAction("EnterForm2");
+        m_exchange = m_inputs.FindAction("Interact");
 
         m_formManager = m_formManagerObject.GetComponent<FormManager>();
         m_moveHorizontal = m_moveHorizontalObject.GetComponent<MoveHorizontal>();
@@ -34,7 +34,7 @@ public class Form3Animations : MonoBehaviour
         {
             var state = LEFT_ACTIVE;
 
-            if (m_transfer.IsPressed())
+            if (m_exchange.IsPressed())
             {
                 if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
                 {

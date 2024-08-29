@@ -33,5 +33,8 @@ A levitating Form, typically unused in combat. You have found a way to exchange 
 -   Face button south/Space: Enter Form 3
 
 ## Work In Progress
-
-This game is a work in progress. Animations for the Forms exist, but no enemies have been implemented yet.
+### Current development: combat system
+* ~~Form 0: horizontal movement~~
+* Form 1: block
+* Form 2: strike, mark combo
+* Form 3: exchange

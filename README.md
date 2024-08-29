@@ -24,13 +24,14 @@ A levitating Form, typically unused in combat. You have found a way to exchange 
 
 ## Controls
 
--   Left stick left/A: Move left
--   Left stick right/D: Move right
--   Right trigger/K: Enter Form 1
--   Left trigger/J: Enter Form 2
--   Face button south/E: (In Form 2) Strike combo, Mark
--   Face button east/Left shift: (In Form 2) Dash
--   Face button south/Space: Enter Form 3
+*   Left stick left/A: Move left
+*   Left stick right/D: Move right
+*   Right trigger/K: Enter Form 1
+*   Left trigger/J: Enter Form 2
+*   Face button south/E: (In Form 2) Strike combo, Mark
+*   Face button east/Left shift: (In Form 2) Dash
+*   Face button south/Space: Enter Form 3
+*   Face button north: (In Form 3) Interact, Exchange 
 
 ## Work In Progress
 ### Current development: combat system

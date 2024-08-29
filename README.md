@@ -20,7 +20,7 @@ Spend your Composure wisely to dash out of harm's way.
 
 ### Form 3
 
-A levitating Form, typically unused in combat. You have found a way to exchange the potential energy granted in this Form to rain destruction on Marked enemies, giving you an upper hand against your more well-trained colleagues.
+A levitating Form, typically unused in combat. You have found a way to exchange the potential energy granted in this Form to rain destruction on the Health of Marked enemies, giving you an upper hand against your more well-trained colleagues.
 
 ## Controls
 

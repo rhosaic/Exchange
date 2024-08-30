@@ -42,10 +42,10 @@ A levitating Form, typically unused in combat. You have found a way to exchange 
         * [x] player, enemy          
 * [x] Form 0:
     * [x] horizontal movement
-* [ ] Form 1:
-    * [ ] block
-* [ ] Form 2:
-    * [ ] combo
+* [x] Form 1:
+    * [x] block
+* [x] Form 2:
+    * [x] combo
 * [ ] Form 3:
     * [x] vertical movement 
     * [ ] exchange

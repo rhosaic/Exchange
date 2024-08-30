@@ -7,10 +7,8 @@ public class FormManager : MonoBehaviour
     public Form CurrentForm { get; private set; }
     [SerializeField] private InputActionAsset m_inputs;
 
-    public float Form1Time { get => m_form1Time; private set { } }
     public bool IsForm3Ascending { get => m_isForm3Ascending; private set { } }
 
-    private float m_form1Time;
     private InputAction m_form1;
     private InputAction m_form2;
     private InputAction m_form3;
@@ -25,8 +23,6 @@ public class FormManager : MonoBehaviour
         m_form3 = m_inputs.FindAction("EnterForm3");
 
         CurrentForm = Form.Zero;
-
-        m_form1Time = 0.0f;
     }
 
     // Update is called once per frame
@@ -39,8 +35,6 @@ public class FormManager : MonoBehaviour
 
     private void UpdateForm1()
     {
-        UpdateForm1Time();
-
         if (m_form1.IsPressed())
         {
             CurrentForm = Form.One;
@@ -62,18 +56,6 @@ public class FormManager : MonoBehaviour
         if ((CurrentForm == Form.Two) && m_form2.WasReleasedThisFrame())
         {
             CurrentForm = Form.Zero;
-        }
-    }
-
-    private void UpdateForm1Time()
-    {
-        if (CurrentForm == Form.One)
-        {
-            m_form1Time += Time.deltaTime;
-        }
-        else
-        {
-            m_form1Time = 0.0f;
         }
     }
 

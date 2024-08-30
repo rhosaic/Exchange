@@ -5,17 +5,13 @@ public class CheckInteract : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D m_interactArea;
     [SerializeField] private InputActionAsset m_inputs;
-    [SerializeField] private GameObject m_formManagerObject;
     [SerializeField] private LayerMask m_interactLayer;
 
-    private FormManager m_formManager;
     private InputAction m_interact;
     private ContactFilter2D m_filter;
 
     void Awake()
     {
-        m_formManager = m_formManagerObject.GetComponent<FormManager>();
-
         m_inputs.Enable();
 
         m_interact = m_inputs.FindAction("Interact");
@@ -32,9 +28,12 @@ public class CheckInteract : MonoBehaviour
 
             foreach (Collider2D collision in collisions)
             {
-                if (collision.TryGetComponent<IInteract>(out var interact))
+                if (collision)
                 {
-                    interact.Interact();
+                    if (collision.TryGetComponent<IInteract>(out var interact))
+                    {
+                        interact.Interact();
+                    }
                 }
             }
         }

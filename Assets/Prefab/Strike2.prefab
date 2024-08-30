@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4846050368687321926}
-  - component: {fileID: 8366398888862624288}
   - component: {fileID: 4293600640356660031}
   m_Layer: 8
   m_Name: Strike2
@@ -33,20 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8366398888862624288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9184459514334646286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f93ee5d2c4fd42afb4c535a0095f40f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_damage: 1
-  m_damageType: 1
 --- !u!61 &4293600640356660031
 BoxCollider2D:
   m_ObjectHideFlags: 0

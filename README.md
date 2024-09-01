@@ -46,6 +46,6 @@ A levitating Form, typically unused in combat. You have found a way to exchange 
     * [x] block
 * [x] Form 2:
     * [x] combo
-* [ ] Form 3:
+* [x] Form 3:
     * [x] vertical movement 
-    * [ ] exchange
+    * [x] exchange

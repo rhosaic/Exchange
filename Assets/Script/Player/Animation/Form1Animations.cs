@@ -27,7 +27,7 @@ public class Form1Animations : MonoBehaviour
 
     void Update()
     {
-        if (m_formManger.CurrentForm == FormManager.Form.One)
+        if (m_formManger.CurrentForm == Form.One)
         {
             var state = LEFT_PASSIVE;
 
@@ -35,14 +35,15 @@ public class Form1Animations : MonoBehaviour
             {
                 state = LEFT_ACTIVE;
 
-                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
                 {
                     state = RIGHT_ACTIVE;
                 }
             }
             else
             {
-                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
+
                 {
                     state = RIGHT_PASSIVE;
                 }

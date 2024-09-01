@@ -26,7 +26,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] SpriteRenderer m_sprite;
 
     List<Vector3> m_attackDefaultPositions;
-    List<Hitbox> m_hitboxes;
+    List<HitBox> m_hitboxes;
     MoveHorizontal m_moveHorizontal;
     FormManager m_formManager;
     Combo m_combo;
@@ -46,14 +46,14 @@ public class ComboManager : MonoBehaviour
         m_moveMark = m_moveMarkObject.GetComponent<MoveMark>();
 
         m_attackDefaultPositions = new List<Vector3>();
-        m_hitboxes = new List<Hitbox>();
+        m_hitboxes = new List<HitBox>();
 
         foreach (GameObject attack in m_attackObjects)
         {
             var defaultPosition = attack.transform.position;
 
             m_attackDefaultPositions.Add(defaultPosition);
-            m_hitboxes.Add(attack.GetComponentInChildren<Hitbox>());
+            m_hitboxes.Add(attack.GetComponentInChildren<HitBox>());
         }
 
         m_attackCount = m_attackObjects.Count;
@@ -65,7 +65,7 @@ public class ComboManager : MonoBehaviour
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Two)
+        if (m_formManager.CurrentForm == Form.Two)
         {
             if (!m_combo.IsIdle)
             {
@@ -147,7 +147,7 @@ public class ComboManager : MonoBehaviour
                 m_isSpriteFacingRight = false;
             }
 
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+            if (m_moveHorizontal.Direction == MoveDirection.Right)
             {
                 if (!m_isSpriteFacingRight)
                 {

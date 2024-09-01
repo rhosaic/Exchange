@@ -2,19 +2,21 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum MoveDirection { Left, Right };
+
 public class MoveHorizontal : MonoBehaviour
 {
-    public enum MoveDirection { Left, Right };
-    [SerializeField] private InputActionAsset m_inputs;
-    [SerializeField] private Rigidbody2D m_body;
-    [SerializeField] private GameObject m_formManagerObject;
-    [SerializeField] private GameObject m_statusObject;
-    [SerializeField] private float m_horizontalSpeed;
-
-    private InputAction m_moveLeft;
-    private InputAction m_moveRight;
-    private FormManager m_formManager;
     public MoveDirection Direction { get; private set; }
+
+    [SerializeField] InputActionAsset m_inputs;
+    [SerializeField] Rigidbody2D m_body;
+    [SerializeField] GameObject m_formManagerObject;
+    [SerializeField] GameObject m_statusObject;
+    [SerializeField] float m_horizontalSpeed;
+
+    InputAction m_moveLeft;
+    InputAction m_moveRight;
+    FormManager m_formManager;
 
     void Awake()
     {
@@ -28,7 +30,7 @@ public class MoveHorizontal : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Zero)
+        if (m_formManager.CurrentForm == Form.Zero)
         {
             UpdateMoveHorizontal();
         }

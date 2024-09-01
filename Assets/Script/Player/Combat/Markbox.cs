@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class Markbox : Hitbox
+public class MarkBox : HitBox
 {
     void Awake()
     {
+        m_filter.SetLayerMask(m_searchLayer);
+
         IsActive = false;
     }
     void Update()
@@ -18,18 +20,19 @@ public class Markbox : Hitbox
     {
         if (collision)
         {
-            if (collision.TryGetComponent<Hurtbox>(out var hurtbox))
+            if (collision.TryGetComponent<HurtBox>(out var hurtbox))
             {
                 CheckMark(hurtbox);
             }
         }
     }
 
-    void CheckMark(Hurtbox hurtbox)
+    void CheckMark(HurtBox hurtbox)
     {
         if (hurtbox.StatusDisplay.Status.Composure.IsZero())
         {
             hurtbox.IsMarked = true;
+            IsActive = false;
         }
     }
 }

@@ -11,13 +11,13 @@ public class Projectile : MonoBehaviour
 
     private Vector3 m_projectileDefaultPosition;
     private Vector3 m_spawnPosition;
-    private Hitbox m_hitbox;
+    private HitBox m_hitbox;
     private bool m_isMove;
     private bool m_isEnd;
 
     void Awake()
     {
-        m_hitbox = m_projectileObject.GetComponentInChildren<Hitbox>();
+        m_hitbox = m_projectileObject.GetComponentInChildren<HitBox>();
 
         m_projectileDefaultPosition = m_projectileObject.transform.position;
         m_spawnPosition = m_spawnTransform.transform.position;

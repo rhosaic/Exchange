@@ -42,7 +42,7 @@ public class Combo : MonoBehaviour
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Two)
+        if (m_formManager.CurrentForm == Form.Two)
         {
             if (m_isIdle)
             {

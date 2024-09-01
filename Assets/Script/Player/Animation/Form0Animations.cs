@@ -18,7 +18,7 @@ public class Form0Animations : MonoBehaviour
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Zero)
+        if (m_formManager.CurrentForm == Form.Zero)
         {
             m_animatorManager.PlayState(FORM0);
         }

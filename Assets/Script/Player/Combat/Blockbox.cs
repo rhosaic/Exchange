@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Blockbox : Hitbox
+public class BlockBox : HitBox
 {
     [SerializeField] GameObject m_statusDisplayObject;
 
@@ -24,7 +24,7 @@ public class Blockbox : Hitbox
     {
         if (collision)
         {
-            if (collision.TryGetComponent<Hitbox>(out var hitbox))
+            if (collision.TryGetComponent<HitBox>(out var hitbox))
             {
                 hitbox.IsActive = false;
                 m_statusDisplay.Status.Composure.HealCapped(hitbox.Damage / 2);

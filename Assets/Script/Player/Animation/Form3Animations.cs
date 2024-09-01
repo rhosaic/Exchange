@@ -30,13 +30,13 @@ public class Form3Animations : MonoBehaviour
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Three)
+        if (m_formManager.CurrentForm == Form.Three)
         {
             var state = LEFT_ACTIVE;
 
             if (m_exchange.IsPressed())
             {
-                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
                 {
                     state = RIGHT_ACTIVE;
                 }
@@ -45,7 +45,7 @@ public class Form3Animations : MonoBehaviour
             {
                 state = LEFT_PASSIVE;
 
-                if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
                 {
                     state = RIGHT_PASSIVE;
                 }

@@ -14,7 +14,7 @@ public class Block : MonoBehaviour
 
     private FormManager m_formManager;
     private MoveHorizontal m_moveHorizontal;
-    private Blockbox m_blockbox;
+    private BlockBox m_blockbox;
     private Vector3 m_defaultPosition;
     private float m_blockTime;
 
@@ -22,20 +22,20 @@ public class Block : MonoBehaviour
     {
         m_formManager = m_formManagerObject.GetComponent<FormManager>();
         m_moveHorizontal = m_moveHorizontalObject.GetComponent<MoveHorizontal>();
-        m_blockbox = m_blockboxObject.GetComponent<Blockbox>();
+        m_blockbox = m_blockboxObject.GetComponent<BlockBox>();
 
         m_defaultPosition = m_blockbox.Collider.transform.position;
     }
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.One)
+        if (m_formManager.CurrentForm == Form.One)
         {
             m_blockTime += Time.deltaTime;
 
             var blockPosition = m_leftBlockTransform.transform.position;
 
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Right)
+            if (m_moveHorizontal.Direction == MoveDirection.Right)
             {
                 blockPosition = m_rightBlockTransform.transform.position;
             }

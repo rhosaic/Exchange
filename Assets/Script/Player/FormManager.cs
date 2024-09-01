@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Form { Zero, One, Two, Three };
+
 public class FormManager : MonoBehaviour
 {
-    public enum Form { Zero, One, Two, Three };
     public Form CurrentForm { get; private set; }
-    [SerializeField] private InputActionAsset m_inputs;
 
-    public bool IsForm3Ascending { get => m_isForm3Ascending; private set { } }
+    [SerializeField] InputActionAsset m_inputs;
 
-    private InputAction m_form1;
-    private InputAction m_form2;
-    private InputAction m_form3;
-    private bool m_isForm3Ascending;
+    InputAction m_form1;
+    InputAction m_form2;
+    InputAction m_form3;
+    bool m_isForm3Ascending;
 
     void Awake()
     {

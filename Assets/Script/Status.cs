@@ -68,7 +68,7 @@ public class Status
         m_health = new Health(healthMaximum);
     }
 
-    public void Damage(float value)
+    public void StandardDamage(float value)
     {
         if (value > float.Epsilon)
         {
@@ -98,6 +98,22 @@ public class Status
                     m_health.DamageFloored(healthDamage);
                     m_composure.DamageFloored(composureDamage);
                 }
+            }
+        }
+    }
+
+    public void StatusDamage(float value)
+    {
+        if (value > float.Epsilon)
+        {
+            m_health.DamageFloored(value);
+
+            var composureHealthDifference =
+                m_composure.PercentRemaining() - m_health.PercentRemaining();
+
+            if (composureHealthDifference > float.Epsilon)
+            {
+                m_composure.DamageFloored(m_composure.Maximum * composureHealthDifference);
             }
         }
     }

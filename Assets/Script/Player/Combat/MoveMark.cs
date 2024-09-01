@@ -44,7 +44,7 @@ public class MoveMark : MonoBehaviour
             var position = m_markObject.transform.position;
             var directionFactor = 1;
 
-            if (m_moveHorizontal.Direction == MoveHorizontal.MoveDirection.Left)
+            if (m_moveHorizontal.Direction == MoveDirection.Left)
             {
                 directionFactor = -1;
             }

@@ -41,15 +41,14 @@ public class Form2Animations : MonoBehaviour
 
     void Update()
     {
-        if (m_formManager.CurrentForm == FormManager.Form.Two)
+        if (m_formManager.CurrentForm == Form.Two)
         {
             var state = LEFT_PASSIVE;
             var comboAnimations = m_leftComboAnimations;
 
             if (!m_combo.IsIdle)
             {
-                if (m_moveHorizontal.Direction
-                        == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
                 {
                     comboAnimations = m_rightComboAnimations;
                 }
@@ -58,9 +57,7 @@ public class Form2Animations : MonoBehaviour
             }
             else
             {
-                if (
-                    m_moveHorizontal.Direction
-                        == MoveHorizontal.MoveDirection.Right)
+                if (m_moveHorizontal.Direction == MoveDirection.Right)
                 {
                     state = RIGHT_PASSIVE;
                 }

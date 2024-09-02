@@ -1,20 +1,21 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ComboManager : MonoBehaviour
 {
-    private const int MARK_INDEX = 2;
-    private const float DAMAGE_DELAY_STRIKE1 = 0.24f;
-    private const float DAMAGE_DELAY_STRIKE2 = 0.24f;
-    private const float DAMAGE_DELAY_MARK = 0.8f;
-    private const float DAMAGE_HOLD_STRIKE1 = 0.1f;
-    private const float DAMAGE_HOLD_STRIKE2 = 0.1f;
-    private const float DAMAGE_HOLD_MARK = 0.3f;
+    const int MARK_INDEX = 2;
+    const float DAMAGE_DELAY_STRIKE1 = 0.24f;
+    const float DAMAGE_DELAY_STRIKE2 = 0.24f;
+    const float DAMAGE_DELAY_MARK = 0.8f;
+    const float DAMAGE_HOLD_STRIKE1 = 0.1f;
+    const float DAMAGE_HOLD_STRIKE2 = 0.1f;
+    const float DAMAGE_HOLD_MARK = 0.3f;
 
-    private readonly float[] m_damageDelays =
-        { DAMAGE_DELAY_STRIKE1, DAMAGE_DELAY_STRIKE2, DAMAGE_DELAY_MARK };
-    private readonly float[] m_damageHolds =
-        { DAMAGE_HOLD_STRIKE1, DAMAGE_HOLD_STRIKE2, DAMAGE_HOLD_MARK };
+    readonly float[] m_damageDelays =
+       { DAMAGE_DELAY_STRIKE1, DAMAGE_DELAY_STRIKE2, DAMAGE_DELAY_MARK };
+    readonly float[] m_damageHolds =
+       { DAMAGE_HOLD_STRIKE1, DAMAGE_HOLD_STRIKE2, DAMAGE_HOLD_MARK };
 
     [SerializeField] List<GameObject> m_attackObjects;
     [SerializeField] List<Transform> m_attackRightTransforms;
@@ -34,8 +35,8 @@ public class ComboManager : MonoBehaviour
     float m_delay;
     int m_attackCount;
     int m_currentComboIndex;
-    bool m_isSpawn;
-    bool m_isSent;
+    bool m_isSet;
+    bool m_isActive;
     bool m_isSpriteFacingRight;
 
     void Awake()
@@ -48,6 +49,7 @@ public class ComboManager : MonoBehaviour
         m_attackDefaultPositions = new List<Vector3>();
         m_hitboxes = new List<HitBox>();
 
+        //  Attack object default positions will be initial position in scene
         foreach (GameObject attack in m_attackObjects)
         {
             var defaultPosition = attack.transform.position;
@@ -57,8 +59,8 @@ public class ComboManager : MonoBehaviour
         }
 
         m_attackCount = m_attackObjects.Count;
-        m_isSpawn = false;
-        m_isSent = false;
+        m_isSet = false;
+        m_isActive = false;
         m_currentComboIndex = 0;
         m_isSpriteFacingRight = true;
     }
@@ -67,16 +69,18 @@ public class ComboManager : MonoBehaviour
     {
         if (m_formManager.CurrentForm == Form.Two)
         {
+            //  Perform combo if player is attacking
             if (!m_combo.IsIdle)
             {
                 Combo();
             }
+            //  Or, reset combo
             else
             {
                 End();
 
-                m_isSpawn = false;
-                m_isSent = false;
+                m_isSet = false;
+                m_isActive = false;
                 m_currentComboIndex = 0;
             }
         }
@@ -84,56 +88,63 @@ public class ComboManager : MonoBehaviour
         {
             End();
 
-            m_isSpawn = false;
-            m_isSent = false;
+            m_isSet = false;
+            m_isActive = false;
             m_currentComboIndex = 0;
         }
     }
 
-    private void Combo()
+    /// <summary>
+    /// Handle Hitbox positioning and timing
+    /// </summary>
+    void Combo()
     {
         m_delay += Time.deltaTime;
 
+        //  Handle current combo HitBox
         if (m_currentComboIndex == m_combo.ComboIndex)
         {
+            //  Set HitBox position and activate after a delay
             if (m_delay > m_damageDelays[m_currentComboIndex])
             {
-                SpawnAndSend();
+                SetAndActivate();
             }
 
-            if (m_isSent && m_delay > m_damageHolds[m_currentComboIndex])
+            //  Keep HitBox active for some time
+            if (m_isActive && m_delay > m_damageHolds[m_currentComboIndex])
             {
                 End();
             }
         }
+        //  Or, update combo index
         else
         {
             End();
 
-            m_isSpawn = false;
-            m_isSent = false;
+            m_isSet = false;
+            m_isActive = false;
             m_currentComboIndex = m_combo.ComboIndex;
         }
     }
 
-    void SpawnAndSend()
+    void SetAndActivate()
     {
-        if (!m_isSpawn)
+        if (!m_isSet)
         {
             if (m_delay > m_damageDelays[m_currentComboIndex])
             {
-                SpawnAttack();
+                SetAttack();
 
                 m_delay = 0.0f;
-                m_isSpawn = true;
-                m_isSent = true;
+                m_isSet = true;
+                m_isActive = true;
 
-                SendAttack();
+                ActivateAttack();
             }
         }
     }
 
-    void SpawnAttack()
+    void SetAttack()
     {
         m_currentComboIndex = m_combo.ComboIndex;
 
@@ -162,7 +173,7 @@ public class ComboManager : MonoBehaviour
         }
     }
 
-    void SendAttack()
+    void ActivateAttack()
     {
         m_hitboxes[m_currentComboIndex].IsActive = true;
 

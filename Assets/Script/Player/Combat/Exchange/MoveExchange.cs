@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class MoveExchange : MonoBehaviour
 {
-    public MarkBody Target { get => m_target; private set { } }
+    public MarkBody Target { get => m_target; set { } }
+    public float TimeToTarget { get => m_timeToTarget; set { } }
 
     [SerializeField] InputActionAsset m_inputs;
     [SerializeField] Rigidbody2D m_playerBody;
@@ -24,6 +25,7 @@ public class MoveExchange : MonoBehaviour
     MarkBody m_target;
     bool m_isExchange;
     bool m_isInvicibleReset;
+    float m_timeToTarget;
 
     void Awake()
     {
@@ -40,6 +42,7 @@ public class MoveExchange : MonoBehaviour
         m_target = null;
         m_isExchange = false;
         m_isInvicibleReset = true;
+        m_timeToTarget = 0.0f;
     }
 
     void Update()
@@ -61,9 +64,21 @@ public class MoveExchange : MonoBehaviour
             {
                 m_isExchange = true;
             }
+
+            if (!m_isExchange && !m_isInvicibleReset)
+            {
+                m_playerHurtBox.IsInvincible = false;
+                m_isInvicibleReset = true;
+            }
         }
         else
         {
+            if (!m_isInvicibleReset)
+            {
+                m_playerHurtBox.IsInvincible = false;
+                m_isInvicibleReset = true;
+            }
+
             m_isExchange = false;
             m_target = null;
         }
@@ -78,6 +93,7 @@ public class MoveExchange : MonoBehaviour
         else
         {
             m_exchangeBox.IsActive = false;
+            m_timeToTarget = 0.0f;
         }
     }
 
@@ -110,12 +126,6 @@ public class MoveExchange : MonoBehaviour
             }
             else
             {
-                if (!m_isInvicibleReset)
-                {
-                    m_playerHurtBox.IsInvincible = false;
-                    m_isInvicibleReset = true;
-                }
-
                 m_exchangeBox.IsActive = false;
             }
 
@@ -123,12 +133,6 @@ public class MoveExchange : MonoBehaviour
         }
         else
         {
-            if (!m_isInvicibleReset)
-            {
-                m_playerHurtBox.IsInvincible = false;
-                m_isInvicibleReset = true;
-            }
-
             m_exchangeBox.IsActive = false;
             m_isExchange = false;
             m_target = null;
@@ -153,6 +157,8 @@ public class MoveExchange : MonoBehaviour
 
     void MoveToTarget()
     {
+        m_timeToTarget += Time.fixedDeltaTime;
+
         var position = m_playerCollider.bounds.center;
         var targetCenter = m_target.Collider.bounds.center;
 

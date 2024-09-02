@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class ExchangeBox : HitBox
 {
+    const float HEIGHT_DAMAGE_FACTOR = 0.75f;
+    const float TRAVEL_TIME_DAMAGE_FACTOR = 0.25f;
+    const float TRAVEL_TIME_MAXIMUMDAMAGE = 0.75f;
+
     [SerializeField] GameObject m_moveExchangeObject;
+    [SerializeField] GameObject m_moveVerticalObject;
 
     MoveExchange m_moveExchange;
+    MoveVertical m_moveVertical;
     List<HurtBox> m_damagedHurtBoxes;
 
     void Awake()
     {
         m_moveExchange = m_moveExchangeObject.GetComponent<MoveExchange>();
+        m_moveVertical = m_moveVerticalObject.GetComponent<MoveVertical>();
 
         m_filter.SetLayerMask(m_searchLayer);
         m_damagedHurtBoxes = new List<HurtBox>();
@@ -65,7 +72,16 @@ public class ExchangeBox : HitBox
 
         if (!isAlreadyDamaged)
         {
-            hurtBox.StatusDisplay.Status.StatusDamage(m_damageAmount);
+            var heightDamageWeight =
+                HEIGHT_DAMAGE_FACTOR * m_moveVertical.HeightRatio;
+            var travelTimeDamageWeight =
+                TRAVEL_TIME_DAMAGE_FACTOR
+                    * (m_moveExchange.TimeToTarget / TRAVEL_TIME_MAXIMUMDAMAGE);
+
+            var damage =
+                m_damageAmount * (heightDamageWeight + travelTimeDamageWeight);
+
+            hurtBox.StatusDisplay.Status.StatusDamage(damage);
             m_damagedHurtBoxes.Add(hurtBox);
         }
 

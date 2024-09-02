@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MoveVertical : MonoBehaviour
 {
+    public float HeightRatio { get => m_heightRatio; private set { } }
+
     [SerializeField] InputActionAsset m_inputs;
     [SerializeField] GameObject m_formManagerObject;
     [SerializeField] Rigidbody2D m_body;
@@ -12,8 +15,8 @@ public class MoveVertical : MonoBehaviour
     InputAction m_form3;
     FormManager m_formManager;
     float m_form3Time;
-    float m_currentForm3Y;
     float m_previousGravityScale;
+    float m_heightRatio;
 
     void Awake()
     {
@@ -24,10 +27,13 @@ public class MoveVertical : MonoBehaviour
 
         m_form3Time = 0.0f;
         m_previousGravityScale = m_body.gravityScale;
+        m_heightRatio = 0.0f;
     }
 
     void FixedUpdate()
     {
+        UpdateHeightRatio();
+
         if (m_formManager.CurrentForm == Form.Three)
         {
             m_body.gravityScale = 0.0f;
@@ -41,7 +47,7 @@ public class MoveVertical : MonoBehaviour
         }
     }
 
-    private void Ascend()
+    void Ascend()
     {
         var position = m_body.transform.position;
 
@@ -49,13 +55,28 @@ public class MoveVertical : MonoBehaviour
 
         if (m_form3Time < m_timeToApex && m_form3.IsPressed())
         {
-            position.y += (Time.fixedDeltaTime * m_speed);
-
-            m_currentForm3Y = position.y;
+            position.y += Time.fixedDeltaTime * m_speed;
         }
 
-        position.y = m_currentForm3Y;
-
         m_body.transform.position = position;
+    }
+
+    void UpdateHeightRatio()
+    {
+        if (m_formManager.CurrentForm == Form.Three)
+        {
+            if (m_form3Time < m_timeToApex)
+            {
+                m_heightRatio = m_form3Time / m_timeToApex;
+            }
+            else
+            {
+                m_heightRatio = 1.0f;
+            }
+        }
+        else
+        {
+            m_heightRatio = 0.0f;
+        }
     }
 }

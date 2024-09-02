@@ -1047,6 +1047,7 @@ MonoBehaviour:
   m_moveHorizontalObject: {fileID: 749020041}
   m_exchangeBoxObject: {fileID: 642595799}
   m_speed: 4
+  m_playerHurtBox: {fileID: 1646310706}
 --- !u!114 &642595802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1067,7 @@ MonoBehaviour:
     m_Bits: 2048
   m_collider: {fileID: 1646310705}
   m_moveExchangeObject: {fileID: 642595799}
+  m_moveVerticalObject: {fileID: 749020041}
 --- !u!1 &749020041
 GameObject:
   m_ObjectHideFlags: 0

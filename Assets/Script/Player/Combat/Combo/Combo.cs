@@ -1,32 +1,39 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Update a combo index from timed user input
+/// </summary>
 public class Combo : MonoBehaviour
 {
-    public bool IsIdle { get => m_isIdle; private set { } }
-    public int ComboIndex { get => m_comboIndex; private set { } }
+    //  Whether or not the player is in a combo
+    public bool IsIdle { get => m_isIdle; set { } }
+    public int ComboIndex { get => m_comboIndex; set { } }
 
-    private const float RESET_STRIKE1 = 0.55f;
-    private const float RESET_STRIKE2 = 0.55f;
-    private const float RESET_MARK = 1.1f;
-    private const float DELAY_STRIKE1 = 0.35f;
-    private const float DELAY_STRIKE2 = 0.35f;
-    private const float DELAY_MARK = 0.9f;
-    private const int COMBO_MAXIMUM_INDEX = 2;
+    //  Time above which combo will reset
+    const float RESET_STRIKE1 = 0.55f;
+    const float RESET_STRIKE2 = 0.55f;
+    const float RESET_MARK = 1.1f;
+    //  Time above which the next combo move will begin
+    const float DELAY_STRIKE1 = 0.35f;
+    const float DELAY_STRIKE2 = 0.35f;
+    const float DELAY_MARK = 0.9f;
+    const int COMBO_MAXIMUM_INDEX = 2;
 
-    private readonly float[] m_inputDelays =
-        { DELAY_STRIKE1, DELAY_STRIKE2, DELAY_MARK };
-    private readonly float[] m_resets =
-        { RESET_STRIKE1, RESET_STRIKE2, RESET_MARK };
+    readonly float[] m_inputDelays =
+       { DELAY_STRIKE1, DELAY_STRIKE2, DELAY_MARK };
+    readonly float[] m_resets =
+       { RESET_STRIKE1, RESET_STRIKE2, RESET_MARK };
 
-    [SerializeField] private InputActionAsset m_inputs;
-    [SerializeField] private GameObject m_formManagerObject;
+    [SerializeField] InputActionAsset m_inputs;
+    [SerializeField] GameObject m_formManagerObject;
 
-    private InputAction m_strike;
-    private FormManager m_formManager;
-    private int m_comboIndex;
-    private float m_timeSinceInput;
-    private bool m_isIdle;
+    InputAction m_strike;
+    FormManager m_formManager;
+    int m_comboIndex;
+    float m_timeSinceInput;
+    bool m_isIdle;
 
     void Awake()
     {
@@ -66,21 +73,28 @@ public class Combo : MonoBehaviour
         }
     }
 
-    private void UpdateComboIndex()
+    /// <summary>
+    /// Read timed user input
+    /// </summary>
+    void UpdateComboIndex()
     {
         m_timeSinceInput += Time.deltaTime;
 
+        //  Combo must still be going
         if (m_timeSinceInput < m_resets[m_comboIndex])
         {
 
+            //  Player must active next move after a delay
             if (
                 m_strike.WasPressedThisFrame()
                 && m_timeSinceInput > m_inputDelays[m_comboIndex])
             {
+                //  Reset to combo beginning
                 if (m_comboIndex == COMBO_MAXIMUM_INDEX)
                 {
                     m_comboIndex = 0;
                 }
+                //  Or, begin next move
                 else
                 {
                     ++m_comboIndex;
@@ -89,6 +103,7 @@ public class Combo : MonoBehaviour
                 m_timeSinceInput = 0.0f;
             }
         }
+        //  0r, combo is over
         else
         {
             m_isIdle = true;

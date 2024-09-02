@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Intercept and deactive HitBoxes
+/// </summary>
 public class BlockBox : HitBox
 {
     [SerializeField] GameObject m_statusDisplayObject;
@@ -20,6 +23,10 @@ public class BlockBox : HitBox
         }
     }
 
+    /// <summary>
+    /// Intercept HitBoxes and heal Composure
+    /// </summary>
+    /// <param name="collision"></param>
     void BlockAttack(Collider2D collision)
     {
         if (collision)

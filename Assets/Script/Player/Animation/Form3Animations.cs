@@ -1,22 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Play Form 3 animations
+/// </summary>
 public class Form3Animations : MonoBehaviour
 {
-    private const string LEFT_ACTIVE = "Form3LeftActive";
-    private const string LEFT_PASSIVE = "Form3LeftPassive";
-    private const string RIGHT_ACTIVE = "Form3RightActive";
-    private const string RIGHT_PASSIVE = "Form3RightPassive";
+    const string LEFT_ACTIVE = "Form3LeftActive";
+    const string LEFT_PASSIVE = "Form3LeftPassive";
+    const string RIGHT_ACTIVE = "Form3RightActive";
+    const string RIGHT_PASSIVE = "Form3RightPassive";
 
-    [SerializeField] private InputActionAsset m_inputs;
-    [SerializeField] private GameObject m_formManagerObject;
-    [SerializeField] private GameObject m_moveHorizontalObject;
-    [SerializeField] private GameObject m_animatorManagerObject;
+    [SerializeField] InputActionAsset m_inputs;
+    [SerializeField] GameObject m_formManagerObject;
+    [SerializeField] GameObject m_moveHorizontalObject;
+    [SerializeField] GameObject m_animatorManagerObject;
 
-    private InputAction m_exchange;
-    private FormManager m_formManager;
-    private MoveHorizontal m_moveHorizontal;
-    private AnimatorManager m_animatorManager;
+    InputAction m_exchange;
+    FormManager m_formManager;
+    MoveHorizontal m_moveHorizontal;
+    AnimatorManager m_animatorManager;
 
     void Awake()
     {
@@ -34,6 +37,7 @@ public class Form3Animations : MonoBehaviour
         {
             var state = LEFT_ACTIVE;
 
+            //  Play Form 3 active animations
             if (m_exchange.IsPressed())
             {
                 if (m_moveHorizontal.Direction == MoveDirection.Right)
@@ -41,6 +45,7 @@ public class Form3Animations : MonoBehaviour
                     state = RIGHT_ACTIVE;
                 }
             }
+            //  Or, play form 3 passive animations
             else
             {
                 state = LEFT_PASSIVE;

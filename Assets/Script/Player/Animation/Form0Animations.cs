@@ -1,14 +1,17 @@
 using UnityEngine;
 
+/// <summary>
+/// Play Form 0 animations
+/// </summary>
 public class Form0Animations : MonoBehaviour
 {
-    private const string FORM0 = "Form0";
+    const string FORM0 = "Form0";
 
-    [SerializeField] private GameObject m_formManagerObject;
-    [SerializeField] private GameObject m_animatorManagerObject;
+    [SerializeField] GameObject m_formManagerObject;
+    [SerializeField] GameObject m_animatorManagerObject;
 
-    private FormManager m_formManager;
-    private AnimatorManager m_animatorManager;
+    FormManager m_formManager;
+    AnimatorManager m_animatorManager;
 
     void Awake()
     {

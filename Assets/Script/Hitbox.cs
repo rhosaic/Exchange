@@ -56,23 +56,22 @@ public class HitBox : MonoBehaviour
 
     void ChooseDamage(HurtBox hurtbox)
     {
-        if (m_damageType == DamageType.Standard)
+        if (!hurtbox.IsInvincible)
         {
-            hurtbox.StatusDisplay.Status.StandardDamage(m_damageAmount);
-
-            IsActive = false;
+            if (m_damageType == DamageType.Standard)
+            {
+                hurtbox.StatusDisplay.Status.StandardDamage(m_damageAmount);
+            }
+            else if (m_damageType == DamageType.Composure)
+            {
+                hurtbox.StatusDisplay.Status.Composure.DamageFloored(m_damageAmount);
+            }
+            else if (m_damageType == DamageType.Status)
+            {
+                hurtbox.StatusDisplay.Status.StatusDamage(m_damageAmount);
+            }
         }
-        else if (m_damageType == DamageType.Composure)
-        {
-            hurtbox.StatusDisplay.Status.Composure.DamageFloored(m_damageAmount);
 
-            IsActive = false;
-        }
-        else if (m_damageType == DamageType.Status)
-        {
-            hurtbox.StatusDisplay.Status.StatusDamage(m_damageAmount);
-
-            IsActive = false;
-        }
+        IsActive = false;
     }
 }

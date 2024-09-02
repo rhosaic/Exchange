@@ -1,21 +1,24 @@
 using UnityEngine;
 
+/// <summary>
+/// Play Form 1 animations
+/// </summary>
 public class Form1Animations : MonoBehaviour
 {
-    private const string LEFT_ACTIVE = "Form1LeftActive";
-    private const string LEFT_PASSIVE = "Form1LeftPassive";
-    private const string RIGHT_ACTIVE = "Form1RightActive";
-    private const string RIGHT_PASSIVE = "Form1RightPassive";
+    const string LEFT_ACTIVE = "Form1LeftActive";
+    const string LEFT_PASSIVE = "Form1LeftPassive";
+    const string RIGHT_ACTIVE = "Form1RightActive";
+    const string RIGHT_PASSIVE = "Form1RightPassive";
 
-    [SerializeField] private GameObject m_formManagerObject;
-    [SerializeField] private GameObject m_moveHorizontalObject;
-    [SerializeField] private GameObject m_animatorManagerObject;
-    [SerializeField] private GameObject m_blockObject;
+    [SerializeField] GameObject m_formManagerObject;
+    [SerializeField] GameObject m_moveHorizontalObject;
+    [SerializeField] GameObject m_animatorManagerObject;
+    [SerializeField] GameObject m_blockObject;
 
-    private FormManager m_formManger;
-    private MoveHorizontal m_moveHorizontal;
-    private AnimatorManager m_animatorManager;
-    private Block m_block;
+    FormManager m_formManger;
+    MoveHorizontal m_moveHorizontal;
+    AnimatorManager m_animatorManager;
+    Block m_block;
 
     void Awake()
     {
@@ -31,6 +34,7 @@ public class Form1Animations : MonoBehaviour
         {
             var state = LEFT_PASSIVE;
 
+            //  Play Form 1 active states
             if (m_block.IsBlockActive)
             {
                 state = LEFT_ACTIVE;
@@ -40,6 +44,7 @@ public class Form1Animations : MonoBehaviour
                     state = RIGHT_ACTIVE;
                 }
             }
+            //  Or, play Form 1 passive states
             else
             {
                 if (m_moveHorizontal.Direction == MoveDirection.Right)

@@ -1,10 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Set and activate the BlockBox
+/// </summary>
 public class Block : MonoBehaviour
 {
+    //  Length of time BlockBox is active
     public static float ActiveTime = 0.15f;
 
-    public bool IsBlockActive { get => m_blockTime < ActiveTime; private set { } }
+    public bool IsBlockActive { get => m_blockTime < ActiveTime; set { } }
 
     [SerializeField] GameObject m_formManagerObject;
     [SerializeField] GameObject m_moveHorizontalObject;
@@ -12,11 +17,11 @@ public class Block : MonoBehaviour
     [SerializeField] Transform m_leftBlockTransform;
     [SerializeField] Transform m_rightBlockTransform;
 
-    private FormManager m_formManager;
-    private MoveHorizontal m_moveHorizontal;
-    private BlockBox m_blockbox;
-    private Vector3 m_defaultPosition;
-    private float m_blockTime;
+    FormManager m_formManager;
+    MoveHorizontal m_moveHorizontal;
+    BlockBox m_blockbox;
+    Vector3 m_defaultPosition;
+    float m_blockTime;
 
     void Awake()
     {
@@ -33,6 +38,7 @@ public class Block : MonoBehaviour
         {
             m_blockTime += Time.deltaTime;
 
+            // Identify the block position
             var blockPosition = m_leftBlockTransform.transform.position;
 
             if (m_moveHorizontal.Direction == MoveDirection.Right)
@@ -40,12 +46,14 @@ public class Block : MonoBehaviour
                 blockPosition = m_rightBlockTransform.transform.position;
             }
 
+            //  Set BlockBox
             if (IsBlockActive)
             {
                 m_blockboxObject.transform.position = blockPosition;
 
                 m_blockbox.IsActive = true;
             }
+            //  Or, remove BlockBox
             else
             {
                 m_blockboxObject.transform.position = m_defaultPosition;

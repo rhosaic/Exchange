@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class MarkBody : MonoBehaviour
 {
-    const float MARK_TIME_MAXIMUM = 10.0f;
+    const float MARK_TIME_MAXIMUM = 4.0f;
 
     public BoxCollider2D Collider { get => m_collider; private set { } }
     public HurtBox HurtBox { get => m_hurtBox; private set { } }

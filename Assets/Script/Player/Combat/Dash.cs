@@ -21,6 +21,7 @@ public class Dash : MonoBehaviour
     float m_dashTime;
     bool m_isDash;
     bool m_isDashPaid;
+    bool m_isInvicibleReset;
 
     void Awake()
     {
@@ -35,6 +36,7 @@ public class Dash : MonoBehaviour
         m_dashTime = 0.0f;
         m_isDash = false;
         m_isDashPaid = false;
+        m_isInvicibleReset = true;
     }
 
     void Update()
@@ -53,11 +55,17 @@ public class Dash : MonoBehaviour
         if (m_isDash)
         {
             m_hurtBox.IsInvincible = true;
+            m_isInvicibleReset = false;
+
             DashMove();
         }
         else
         {
-            m_hurtBox.IsInvincible = false;
+            if (!m_isInvicibleReset)
+            {
+                m_hurtBox.IsInvincible = false;
+                m_isInvicibleReset = true;
+            }
         }
     }
 

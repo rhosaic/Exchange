@@ -37,17 +37,14 @@ public class MoveHorizontal : MonoBehaviour
     }
     private void UpdateMoveHorizontal()
     {
-        var moveLeftValue = m_moveLeft.ReadValue<float>();
-        var moveRightValue = m_moveRight.ReadValue<float>();
-
         var position = m_body.transform.position;
 
-        if (moveLeftValue > float.Epsilon)
+        if (m_moveLeft.IsPressed())
         {
             position += (Time.fixedDeltaTime * m_horizontalSpeed * Vector3.left);
             Direction = MoveDirection.Left;
         }
-        else if (moveRightValue > float.Epsilon)
+        else if (m_moveRight.IsPressed())
         {
             position += (Time.fixedDeltaTime * m_horizontalSpeed * Vector3.right);
             Direction = MoveDirection.Right;

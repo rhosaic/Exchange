@@ -53,6 +53,7 @@ public class FireProjectile : MonoBehaviour
             m_light.intensity = 0.0f;
             m_status.Status.Composure.HealCapped(
                 m_status.Status.Composure.Maximum);
+            m_status.Status.Health.HealCapped(m_status.Status.Health.Maximum);
         }
     }
 

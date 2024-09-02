@@ -14,6 +14,7 @@ public class MoveExchange : MonoBehaviour
     [SerializeField] GameObject m_moveHorizontalObject;
     [SerializeField] GameObject m_exchangeBoxObject;
     [SerializeField] float m_speed;
+    [SerializeField] HurtBox m_playerHurtBox;
 
     InputAction m_exchange;
     FormManager m_formManager;
@@ -22,6 +23,7 @@ public class MoveExchange : MonoBehaviour
     List<MarkBody> m_marks;
     MarkBody m_target;
     bool m_isExchange;
+    bool m_isInvicibleReset;
 
     void Awake()
     {
@@ -35,8 +37,9 @@ public class MoveExchange : MonoBehaviour
 
         m_marks = new List<MarkBody>();
 
-        m_isExchange = false;
         m_target = null;
+        m_isExchange = false;
+        m_isInvicibleReset = true;
     }
 
     void Update()
@@ -102,9 +105,17 @@ public class MoveExchange : MonoBehaviour
             if (isFacingTarget)
             {
                 m_exchangeBox.IsActive = true;
+                m_playerHurtBox.IsInvincible = true;
+                m_isInvicibleReset = false;
             }
             else
             {
+                if (!m_isInvicibleReset)
+                {
+                    m_playerHurtBox.IsInvincible = false;
+                    m_isInvicibleReset = true;
+                }
+
                 m_exchangeBox.IsActive = false;
             }
 
@@ -112,6 +123,12 @@ public class MoveExchange : MonoBehaviour
         }
         else
         {
+            if (!m_isInvicibleReset)
+            {
+                m_playerHurtBox.IsInvincible = false;
+                m_isInvicibleReset = true;
+            }
+
             m_exchangeBox.IsActive = false;
             m_isExchange = false;
             m_target = null;

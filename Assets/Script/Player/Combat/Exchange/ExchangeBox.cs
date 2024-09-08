@@ -5,7 +5,7 @@ public class ExchangeBox : HitBox
 {
     const float HEIGHT_DAMAGE_FACTOR = 0.75f;
     const float TRAVEL_TIME_DAMAGE_FACTOR = 0.25f;
-    const float TRAVEL_TIME_MAXIMUMDAMAGE = 0.75f;
+    const float TRAVEL_TIME_MAXIMUMDAMAGE = 0.37f;
 
     [SerializeField] GameObject m_moveExchangeObject;
     [SerializeField] GameObject m_moveVerticalObject;

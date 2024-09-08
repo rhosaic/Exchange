@@ -66,7 +66,7 @@ public class FireProjectile : MonoBehaviour
 
         m_fireTime += Time.deltaTime;
 
-        if (m_fireTime > fireDelay)
+        if (m_fireTime > fireDelay && !m_status.Status.Health.IsZero())
         {
             m_projectile.Begin();
 

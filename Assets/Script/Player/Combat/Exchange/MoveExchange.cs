@@ -108,15 +108,14 @@ public class MoveExchange : MonoBehaviour
         {
             var isFacingTargetRight =
                 m_moveHorizontal.Direction == MoveDirection.Right
-                    && m_target.transform.position.x
+                    && m_target.Collider.bounds.center.x
                         > m_playerBody.transform.position.x;
             var isFacingTargetLeft =
                 m_moveHorizontal.Direction == MoveDirection.Left
-                    && m_target.transform.position.x
+                    && m_target.Collider.bounds.center.x
                         < m_playerBody.transform.position.x;
 
             var isFacingTarget = isFacingTargetLeft || isFacingTargetRight;
-
 
             if (isFacingTarget)
             {

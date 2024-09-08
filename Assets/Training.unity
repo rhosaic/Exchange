@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_formManagerObject: {fileID: 749020041}
   m_moveHorizontalObject: {fileID: 749020041}
   m_exchangeBoxObject: {fileID: 642595799}
-  m_speed: 4
+  m_speed: 6.5
   m_playerHurtBox: {fileID: 1646310706}
 --- !u!114 &642595802
 MonoBehaviour:
@@ -1567,6 +1567,30 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1674977608378440596, guid: e2ff69ceb5b5b4b59a859dac3a582e68, type: 3}
   m_PrefabInstance: {fileID: 1268614671}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1015414083 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 9157698941369046000, guid: e2ff69ceb5b5b4b59a859dac3a582e68, type: 3}
+  m_PrefabInstance: {fileID: 1268614671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1015414085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015414082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312f5d314ac640749d26572bd1b8a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_damageAmount: 0
+  m_damageType: 0
+  m_searchLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  m_collider: {fileID: 1015414083}
+  m_statusDisplayObject: {fileID: 790040621}
 --- !u!1001 &1034211742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1947,7 +1971,10 @@ PrefabInstance:
     - {fileID: 8293070048785596232, guid: e2ff69ceb5b5b4b59a859dac3a582e68, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1674977608378440596, guid: e2ff69ceb5b5b4b59a859dac3a582e68, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1015414085}
   m_SourcePrefab: {fileID: 100100000, guid: e2ff69ceb5b5b4b59a859dac3a582e68, type: 3}
 --- !u!1 &1350998373
 GameObject:

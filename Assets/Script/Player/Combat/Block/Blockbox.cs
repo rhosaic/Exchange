@@ -33,8 +33,11 @@ public class BlockBox : HitBox
         {
             if (collision.TryGetComponent<HitBox>(out var hitbox))
             {
-                hitbox.IsActive = false;
-                m_statusDisplay.Status.Composure.HealCapped(hitbox.Damage / 2);
+                if (hitbox.IsActive)
+                {
+                    m_statusDisplay.Status.Composure.HealCapped(hitbox.Damage / 2);
+                    hitbox.IsActive = false;
+                }
             }
         }
     }
